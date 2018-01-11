@@ -1,0 +1,153 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.huatuo.online</groupId>
+		<artifactId>huatuo-pms</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>huatuo-pms-services</artifactId>
+	<packaging>war</packaging>
+	<description>四川华佗在线PMS服务系统</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+
+		<!-- 子工程依赖 -->
+		<dependency>
+			<groupId>com.huatuo.online</groupId>
+			<artifactId>huatuo-db</artifactId>
+			<version>${huatuo.db.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.huatuo.online</groupId>
+			<artifactId>huatuo-base</artifactId>
+			<version>${huatuo.base.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.huatuo.online</groupId>
+			<artifactId>huatuo-pms-api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<!-- httpclient -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>backport-util-concurrent</groupId>
+			<artifactId>backport-util-concurrent</artifactId>
+		</dependency>
+
+		<!-- alibaba -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+		</dependency>
+
+		<!-- redis -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+		</dependency>
+
+		<!-- mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.1</version>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<properties>
+				<package.environment>local</package.environment>
+			</properties>
+		</profile>
+		<profile>
+			<id>www</id>
+			<properties>
+				<package.environment>www</package.environment>
+			</properties>
+		</profile>
+		<profile>
+			<id>241</id>
+			<properties>
+				<package.environment>241</package.environment>
+			</properties>
+		</profile>
+		<profile>
+			<id>test61</id>
+			<properties>
+				<package.environment>test61</package.environment>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
+
+	<build>
+		<finalName>huatuo-pms</finalName>
+		<plugins>
+			<!-- jetty插件 -->
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.22</version>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<contextPath>/huatuo-pms</contextPath>
+					<connectors>
+						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+							<port>8081</port>
+						</connector>
+					</connectors>
+					<maxIdleTime>60000</maxIdleTime>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<!-- 不测试 <skip>true</skip> -->
+				</configuration>
+			</plugin>
+		</plugins>
+		<!-- <resources> <resource> <directory>src/main/resources-${package.environment}</directory> 
+			<filtering>true</filtering> </resource> </resources> -->
+		<resources>
+			<resource>
+				<directory>src/main/config/${package.environment}</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+</project>

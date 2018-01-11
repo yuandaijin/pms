@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.huatuo.online</groupId>
+		<artifactId>huatuo-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>huatuo-pms</artifactId>
+	<name>四川华佗在线-权限管理、用户管理</name>
+	<packaging>pom</packaging>
+	<modules>
+		<module>huatuo-pms-services</module>
+		<module>huatuo-pms-api</module>
+		<module>huatuo-pms-security</module>
+	</modules>
+	<properties>
+		<huatuo.pms.version>1.0.0-SNAPSHOT</huatuo.pms.version>
+
+	</properties>
+</project>
